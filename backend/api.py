@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, StrictInt
-from solver import solve_quadratic
+from solution import solution_sec_degree
 
 app = FastAPI(title="Resolution de l'equation du second degree")
 
@@ -23,6 +23,6 @@ class EquationInput(BaseModel):
 @app.post("/api/resoudre")
 def solve_endpoint(data: EquationInput):
     try:
-        return solve_quadratic(data.a, data.b, data.c)
+        return solution_sec_degree(data.a, data.b, data.c)
     except ValueError as err:
         raise HTTPException(status_code=400, detail=str(err)) from err
